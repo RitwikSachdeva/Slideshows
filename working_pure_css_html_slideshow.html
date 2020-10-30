@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<style type="text/css">
+		@import url("https://fonts.googleapis.com/css?family=Lato:400,400i,700");
+
+/* Some resets, not essencial for this example to work */
+
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+}
+
+input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+  position: absolute;
+}
+
+/* Base styles for this example */
+
+.wrapper {
+  width: 50vw; /* unfortunately width has to be set to some hard value */
+  display: flex;
+}
+
+.slide {
+  width: 0;
+}
+
+.content {
+  width: 50vw;
+  height: 100%; /* this is optional if you want every slide to have same height as the highest one */
+}
+
+/* Additional styling */
+
+html, body {
+  background-color: #BDBDBD;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center; 
+  font-family: Lato;
+}
+
+.wrapper {
+  margin: 0 auto;
+  background-color: white;
+  box-shadow: 3px 3px 20px #9E9E9E;
+}
+
+span {
+  background-color: white;
+  text-align: center;
+  line-height: 4rem;
+  width: 4rem;
+  border-radius: 8rem;
+  color: #616161;
+  font-size: 2rem;
+}
+
+.content {
+  padding: 30px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .6s;
+  max-height: 90vh;
+  overflow-y: auto;
+}
+
+.content2,
+.content5,
+.content6
+{
+  display: flex;
+  justify-content: center;
+  align-items: center;  
+  background-color: #E0E0E0;
+}
+
+.content3 {
+  background-image: url(https://images.unsplash.com/photo-1507473885765-e6ed057f782c?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=800&fit=max&ixid=eyJhcHBfaWQiOjE0NTg5fQ);
+  background-size: cover;
+  background-position: center;
+}
+#i_1:checked ~ .wrapper .content1,
+#i_2:checked ~ .wrapper .content2,
+#i_3:checked ~ .wrapper .content3,
+#i_4:checked ~ .wrapper .content4,
+#i_5:checked ~ .wrapper .content5,
+#i_6:checked ~ .wrapper .content6 {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+label {
+  color: #E0E0E0;
+  transition-duration: .6s;
+  cursor: pointer;
+}
+
+#i_1:checked ~ .controls label[for="i_1"],
+#i_2:checked ~ .controls label[for="i_2"],
+#i_3:checked ~ .controls label[for="i_3"],
+#i_4:checked ~ .controls label[for="i_4"],
+#i_5:checked ~ .controls label[for="i_5"],
+#i_6:checked ~ .controls label[for="i_6"] {
+  color: #424242;
+}
+	</style>
+</head>
+<body>
+<!-- This example illustrates how to create layout of slides stacked on each  other(especially useful for fade in/out transitions). It's achieved without setting their height and avoiding position: absolute; so they are fully flexible and easy to keep in normal page flow. -->
+<input type="radio" name="switch" id="i_1">
+<input type="radio" name="switch" id="i_2">
+<input type="radio" name="switch" id="i_3" checked>
+<input type="radio" name="switch" id="i_4">
+<input type="radio" name="switch" id="i_5">
+<input type="radio" name="switch" id="i_6">
+<div class="wrapper">
+  <div class="slide">
+    <div class="content content1">
+        <p>Nullam quis pretium nisl, suscipit imperdiet metus. Fusce efficitur odio id dolor egestas, quis dignissim orci consequat. Pellentesque libero nunc, volutpat et ligula eu, aliquam iaculis odio. 
+          <!-- <p>In venenatis aliquet ligula sed accumsan. Maecenas imperdiet a ligula eleifend consectetur. -->
+    </div>   
+  </div>
+  <div class="slide">
+    <div class="content content2">
+      <span>♫</span>
+    </div>    
+  </div>
+  <div class="slide">
+    <div class="content content3">
+      
+    </div>
+  </div>
+  <div class="slide">
+    <div class="content content4">
+<p>Praesent mattis est faucibus tellus eleifend viverra. Nam non lectus vulputate lacus tristique fermentum. Fusce venenatis mollis imperdiet. Nunc dictum nisi quis mauris varius tincidunt. Suspendisse imperdiet felis lectus. Nunc pharetra tellus ac nulla scelerisque pulvinar. Fusce non blandit dui, sed facilisis neque. Donec gravida nibh dolor, vitae imperdiet lorem varius et. Maecenas pulvinar enim eget velit porta lobortis. Pellentesque sagittis tristique fermentum. <p>Aliquam pretium magna sed consectetur pellentesque. Maecenas id sem eu urna molestie lobortis lacinia nec nulla. Donec tristique tellus lectus, eu faucibus erat tincidunt non. Nunc ut mollis velit.     
+    </div>    
+  </div>
+  <div class="slide">
+    <div class="content content5">
+      <span>♪</span>
+    </div>    
+  </div>
+  <div class="slide">
+    <div class="content content6">
+      <span>♬</span>
+    </div>   
+  </div>  
+</div>
+<div class="controls">
+  <label for="i_1">⬤</label>
+  <label for="i_2">⬤</label>
+  <label for="i_3">⬤</label>
+  <label for="i_4">⬤</label>
+  <label for="i_5">⬤</label>
+  <label for="i_6">⬤</label>
+</div>
+<a target="_blank" href="https://twitter.com/kamildyrek"><svg style="width:2em;height:2em;position:fixed;top:1em;left:1em;opacity:.8;" viewBox="0 0 24 24"><path fill="#fff" d="M17.71,9.33C18.19,8.93 18.75,8.45 19,7.92C18.59,8.13 18.1,8.26 17.56,8.33C18.06,7.97 18.47,7.5 18.68,6.86C18.16,7.14 17.63,7.38 16.97,7.5C15.42,5.63 11.71,7.15 12.37,9.95C9.76,9.79 8.17,8.61 6.85,7.16C6.1,8.38 6.75,10.23 7.64,10.74C7.18,10.71 6.83,10.57 6.5,10.41C6.54,11.95 7.39,12.69 8.58,13.09C8.22,13.16 7.82,13.18 7.44,13.12C7.81,14.19 8.58,14.86 9.9,15C9,15.76 7.34,16.29 6,16.08C7.15,16.81 8.46,17.39 10.28,17.31C14.69,17.11 17.64,13.95 17.71,9.33M12,2A10,10 0 0,1 22,12A10,10 0 0,1 12,22A10,10 0 0,1 2,12A10,10 0 0,1 12,2Z" /></svg></a>
+</body>
+</html>

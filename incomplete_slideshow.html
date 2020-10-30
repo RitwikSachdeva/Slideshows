@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<style type="text/css">
+		#slideshow {
+		    position:relative;
+		    height:400px;
+		    width:400%;
+		}
+		#slideshow DIV {
+		    position:absolute;
+		    top:0;
+		    left:0;
+		    z-index:8;
+		    opacity:0.0;
+		    height: 400px;
+		    background-color: #FFF;
+		}
+		#slideshow DIV.active {
+		    z-index:10;
+		    opacity:1.0;
+		}
+		#slideshow DIV.last-active {
+		    z-index:9;
+		}
+		#slideshow DIV IMG {
+		    height: 350px;
+		    display: block;
+		    border: 0;
+		    margin-bottom: 10px;
+		}
+		#dot_wrap{
+			z-index: 999;
+    		width: 100%;
+		}
+		.indctr_dot{
+			height: 12px;
+			width: 12px;
+			margin: 0 6px !important;
+			background-color: transparent !important;
+			display: inline-block;
+			border:1px solid #043353 !important;
+			transition: background-color 0.6s ease !important;
+			cursor: pointer;
+		}
+		.dotshowing{
+		  background-color: #043353 !important;
+		}
+		#slider-image-1:target ~ #slideshow
+        {
+            left: 0%;
+        }
+       
+        #slider-image-2:target ~ #slideshow
+        {
+            left: -200%;
+        }
+       
+        #slider-image-3:target ~ #slideshow
+        {
+            left: -300%;
+        }
+	</style>
+</head>
+<body>
+<span id="slider-image-1"></span>
+<span id="slider-image-2"></span>
+<span id="slider-image-3"></span>
+<div id="slideshow">
+    <div class="card active" id="card1">
+        <a href="http://jonraasch.com/blog/">
+        	<img src="image1.png" alt="Image 1">First Image
+    	</a>
+    </div>
+    <div class="card" id="card2"> 
+    	<a href="http://jonraasch.com/blog/">
+    		<img src="image2.png" alt="Image 2">This will work with any markup
+    	</a>
+    </div>
+    <div class="card" id="card3">
+    	<a href="http://jonraasch.com/blog/">
+    		<img src="image3.png" alt="Image 3" />Swap this out for anything, links, paragraphs, whatever
+    	</a>
+	</div>
+</div>
+<div id="dot_wrap" style="text-align:center">
+<a href="#" id="card_dot1" class="indctr_dot dotshowing"></a>
+<a href="#" id="card_dot2" class="indctr_dot"></a>
+<a href="#" id="card_dot3" class="indctr_dot"></a>
+</div>
+<button id="prev">Previous</button>
+<button id="next">Next</button>
+
+<script type="text/javascript">
+	function slideSwitch() {
+    var active = jQuery('#slideshow DIV.active');
+    var dotshowing = jQuery('#dot_wrap a.dotshowing');
+    if (active.length == 0) active = jQuery('#slideshow DIV:last');
+    if (dotshowing.length == 0) dotshowing = jQuery('#dot_wrap a:last');
+    // use this to pull the divs in the order they appear in the markup
+    var next = active.next().length ? active.next() : jQuery('#slideshow DIV:first');
+    var next_dot = dotshowing.next().length ? dotshowing.next() : jQuery('#dot_wrap a:first');
+    active.addClass('last-active');
+    dotshowing.addClass('last-active');
+
+    next.css({
+        opacity: 0.0
+    })
+        .addClass('active')
+        .animate({
+        opacity: 1.0
+    }, 10, function () {
+        active.removeClass('active last-active');
+    });
+
+    next_dot.css({
+        opacity: 0.0
+    })
+        .addClass('dotshowing')
+        .animate({
+        opacity: 1.0
+    }, 10, function () {
+        dotshowing.removeClass('dotshowing last-active');
+    });
+}
+
+var theInterval;
+
+function startSlide() {
+    theInterval = setInterval(slideSwitch, 2000);
+}
+function stopSlide() {
+    clearInterval(theInterval);
+}
+jQuery('#next').click(function(){
+if (jQuery('.active').next('.card').length) {
+    jQuery('.active').removeClass('active')
+                .next('.card')
+                .addClass('active');
+}
+});
+jQuery('#prev').click(function(){
+if (jQuery('.active').prev('.card').length) {
+    jQuery('.active').removeClass('active')
+                .prev('.card')
+                .addClass('active');
+}
+});
+jQuery(function () {
+    startSlide();
+    jQuery('#slideshow DIV').hover(function () {
+        stopSlide();
+    }, function () {
+        startSlide();
+    })
+});
+</script>
+</body>
+</html>
